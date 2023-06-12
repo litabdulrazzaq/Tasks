@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>geoLocation</title>
+</head>
+<body>
+    <h2 style="text-align: center;" id="">Location</h2>
+    <button type="button" id="location" onclick="">Get Location</button>
+    <button type="button" onclick="getIPAddress()">Get Ip</button>
+    <button type="button" id="result"></button>
+
+
+</body>
+
+
+<script>
+    let button = document.getElementById("location");
+let latText = document.getElementById("latitude");
+let longText = document.getElementById("longitude");
+
+button.addEventListener("click", () => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    let lat = position.coords.latitude;
+    let long = position.coords.longitude;
+
+    latText.innerText = lat.toFixed(2);
+    longText.innerText = long.toFixed(2);
+  });
+});
+
+</script>
+</html>
+
+<script>
+function getIPAddress() {
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      var ipAddress = data.ip;
+      var resultElement = document.getElementById('result');
+      resultElement.textContent = "IP Address: " + ipAddress;
+    })
+    .catch(error => {
+      console.log("Error: " + error);
+    });
+}
+</script>
